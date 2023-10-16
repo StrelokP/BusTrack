@@ -22,4 +22,15 @@ public class UserService {
         }
         throw new EntityNotFoundException("Пользователя с таким id не существует");
     }
+
+    public String saveUser(User user) {
+        boolean isUserExists = userRepository.existsByLoginIgnoreCase(user.getLogin());
+
+        if (isUserExists) {
+            throw new RuntimeException("Пользователь с таким логином уже существует");
+        }
+
+        userRepository.save(user);
+        return user.getLogin();
+    }
 }
