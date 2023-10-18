@@ -26,6 +26,12 @@ public class UserController {
         return "welcome";
     }
 
+    @GetMapping("/reg")
+    public String reg() {
+        return "reg";
+    }
+
+
     @PostMapping("/user")
     public ModelAndView createUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();
