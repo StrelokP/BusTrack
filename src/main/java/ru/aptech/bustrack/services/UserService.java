@@ -14,6 +14,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * <b>Возвращает сущность пользователя из БД по его UUID</b>
+     * @param id идентификатор пользователя
+     * @return сущность пользователя {@link User}
+     */
     public User getUserById(UUID id) {
         Optional<User> user = userRepository.findById(id);
 
