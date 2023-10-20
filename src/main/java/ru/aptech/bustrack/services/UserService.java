@@ -2,10 +2,12 @@ package ru.aptech.bustrack.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.aptech.bustrack.entities.Station;
 import ru.aptech.bustrack.entities.User;
 import ru.aptech.bustrack.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,13 +21,8 @@ public class UserService {
      * @param id идентификатор пользователя
      * @return сущность пользователя {@link User}
      */
-    public User getUserById(UUID id) {
-        Optional<User> user = userRepository.findById(id);
-
-        if (user.isPresent()) {
-            return user.get();
-        }
-        throw new EntityNotFoundException("Пользователя с таким id не существует");
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     public String saveUser(User user) {
@@ -37,5 +34,13 @@ public class UserService {
 
         userRepository.save(user);
         return user.getLogin();
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }

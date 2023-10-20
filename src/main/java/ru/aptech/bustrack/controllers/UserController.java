@@ -31,7 +31,6 @@ public class UserController {
         return "reg";
     }
 
-
     @PostMapping("/user")
     public ModelAndView createUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView();

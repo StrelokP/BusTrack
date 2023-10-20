@@ -21,7 +21,6 @@ public class Transport {
     @JoinColumn(name = "type_id")
     private TransportType type;
 
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
