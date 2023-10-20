@@ -22,6 +22,8 @@ public class SecurityConfiguration {
                         .antMatchers("/img/**").permitAll()
                         .antMatchers("/js/**").permitAll()
                         .antMatchers("/reg").permitAll()
+                        .antMatchers("/api/cipher/**").permitAll()
+                        .antMatchers("/api/cipher").permitAll()
                         .antMatchers("/user").permitAll()
                         .antMatchers("/").permitAll()
                         .antMatchers("/h2-console/**").permitAll()

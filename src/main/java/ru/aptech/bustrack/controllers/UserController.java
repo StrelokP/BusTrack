@@ -1,48 +1,40 @@
 package ru.aptech.bustrack.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import ru.aptech.bustrack.entities.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ru.aptech.bustrack.entities.User;
 import ru.aptech.bustrack.services.UserService;
 
-@Controller
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
 public class UserController {
     @Autowired
-    private UserService userService;
+    protected UserService userService;
 
-    @GetMapping("/")
-    public String index() {
-        return "index";
+    @GetMapping("/user")
+    public User getUserById(@RequestParam(name = "id") Long id) {
+        Optional<User> user = userService.getUserById(id);
+        return user.orElse(null);
     }
 
-    @GetMapping("/welcome")
-    public String welcome() {
-        return "welcome";
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
 
-    @GetMapping("/reg")
-    public String reg() {
-        return "reg";
+    @GetMapping("/cipher")
+    public String testCipher(@RequestParam(name = "password") String password) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.encode(password);
     }
 
-    @PostMapping("/user")
-    public ModelAndView createUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            String login = userService.saveUser(user);
-            modelAndView.setViewName("redirect:/welcome");
-            redirectAttributes.addFlashAttribute("login", login);
-        } catch (RuntimeException e) {
-            modelAndView.setViewName("redirect:/");
-            redirectAttributes.addFlashAttribute("err",
-                    String.format("Ошибка при регистрации: %s", e.getMessage()));
-        }
-        return modelAndView;
-    }
+    //TODO: login и reg свзать с стандартной логикой Spring Security
+
 }
