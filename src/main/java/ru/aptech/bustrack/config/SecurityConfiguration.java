@@ -32,6 +32,7 @@ public class SecurityConfiguration {
                         .antMatchers("/reg").permitAll()
                         .antMatchers("/api/**").permitAll()
                         .antMatchers("/user").permitAll()
+                        .antMatchers("/admin").permitAll()
                         .antMatchers("/").permitAll()
                         .antMatchers(AUTH_LIST).authenticated()
                         .anyRequest().authenticated()
