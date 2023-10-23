@@ -14,6 +14,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+    private static final String[] AUTH_LIST = {
+            // -- swagger ui
+            "**/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -22,11 +30,10 @@ public class SecurityConfiguration {
                         .antMatchers("/img/**").permitAll()
                         .antMatchers("/js/**").permitAll()
                         .antMatchers("/reg").permitAll()
-                        .antMatchers("/api/cipher/**").permitAll()
-                        .antMatchers("/api/cipher").permitAll()
+                        .antMatchers("/api/**").permitAll()
                         .antMatchers("/user").permitAll()
                         .antMatchers("/").permitAll()
-                        .antMatchers("/h2-console/**").permitAll()
+                        .antMatchers(AUTH_LIST).authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

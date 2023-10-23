@@ -29,19 +29,4 @@ public class MainController {
     public String reg() {
         return "reg";
     }
-
-    @PostMapping("/user")
-    public ModelAndView createUser(@ModelAttribute User user, RedirectAttributes redirectAttributes) {
-        ModelAndView modelAndView = new ModelAndView();
-        try {
-            String login = userService.saveUser(user);
-            modelAndView.setViewName("redirect:/welcome");
-            redirectAttributes.addFlashAttribute("login", login);
-        } catch (RuntimeException e) {
-            modelAndView.setViewName("redirect:/");
-            redirectAttributes.addFlashAttribute("err",
-                    String.format("Ошибка при регистрации: %s", e.getMessage()));
-        }
-        return modelAndView;
-    }
 }

@@ -25,15 +25,18 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public String saveUser(User user) {
+    public void registerUser(User user) {
         boolean isUserExists = userRepository.existsByLoginIgnoreCase(user.getLogin());
 
         if (isUserExists) {
-            throw new RuntimeException("Пользователь с таким логином уже существует");
+            throw new EntityNotFoundException("Пользователь с таким логином уже существует");
         }
 
         userRepository.save(user);
-        return user.getLogin();
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user);
     }
 
     public List<User> getUsers() {

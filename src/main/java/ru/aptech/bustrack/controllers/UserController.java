@@ -1,15 +1,12 @@
 package ru.aptech.bustrack.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.aptech.bustrack.entities.User;
 import ru.aptech.bustrack.services.UserService;
 
-import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @RestController
@@ -19,22 +16,37 @@ public class UserController {
     protected UserService userService;
 
     @GetMapping("/user")
-    public User getUserById(@RequestParam(name = "id") Long id) {
+    public ResponseEntity<?> getUserById(@RequestParam(name = "id") Long id) {
         Optional<User> user = userService.getUserById(id);
-        return user.orElse(null);
+
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            return ResponseEntity.badRequest().body("Пользователь не найден");
+        }
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
-        return userService.getUsers();
+    public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ok(userService.getUsers());
     }
 
-    @GetMapping("/cipher")
-    public String testCipher(@RequestParam(name = "password") String password) {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder.encode(password);
+    @PostMapping("/user")
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        try {
+            userService.registerUser(user);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
-    //TODO: login и reg свзать с стандартной логикой Spring Security
+    @PutMapping("/user")
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+        userService.updateUser(user);
+        return ResponseEntity.ok().build();
+    }
+
+    //TODO: login связать с стандартной логикой Spring Security
 
 }
