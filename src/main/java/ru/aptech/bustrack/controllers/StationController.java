@@ -8,12 +8,15 @@ import ru.aptech.bustrack.services.StationService;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api")
 public class StationController {
+    @SuppressWarnings("unused")
     @Autowired
     protected StationService stationService;
 
+    @SuppressWarnings("unused")
     @GetMapping("/station")
     public ResponseEntity<?> getStationById(@RequestParam(name = "id") Long id) {
         Optional<Station> station = stationService.getStationById(id);
@@ -25,16 +28,19 @@ public class StationController {
         }
     }
 
+    @SuppressWarnings("unused")
     @GetMapping("/stations")
     public ResponseEntity<?> getStations() {
         return ResponseEntity.ok(stationService.getStations());
     }
 
+    @SuppressWarnings("unused")
     @PostMapping("/station")
     public void saveStation(@RequestBody Station station) {
         stationService.saveStation(station);
     }
 
+    @SuppressWarnings("unused")
     @DeleteMapping("/station")
     public void deleteStation(@RequestParam(name = "id") Long id) {
         stationService.deleteStationById(id);

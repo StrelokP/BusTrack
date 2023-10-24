@@ -8,6 +8,7 @@ import ru.aptech.bustrack.services.TransportService;
 
 import java.util.Optional;
 
+@SuppressWarnings({"ALL", "unused"})
 @RestController
 @RequestMapping("/api")
 public class TransportController {

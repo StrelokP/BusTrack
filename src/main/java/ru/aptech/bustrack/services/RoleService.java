@@ -7,6 +7,7 @@ import ru.aptech.bustrack.repositories.RoleRepository;
 
 import java.util.List;
 import java.util.Optional;
+@SuppressWarnings("unused")
 @Service
 public class RoleService {
     @SuppressWarnings("unused")

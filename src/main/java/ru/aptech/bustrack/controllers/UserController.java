@@ -9,6 +9,7 @@ import ru.aptech.bustrack.services.UserService;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api")
 public class UserController {

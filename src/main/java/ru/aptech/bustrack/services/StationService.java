@@ -8,6 +8,7 @@ import ru.aptech.bustrack.repositories.StationRepository;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("ALL")
 @Service
 public class StationService {
     @Autowired

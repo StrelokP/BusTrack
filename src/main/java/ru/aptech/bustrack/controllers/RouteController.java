@@ -8,12 +8,15 @@ import ru.aptech.bustrack.services.RouteService;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api")
 public class RouteController {
+    @SuppressWarnings("unused")
     @Autowired
     protected RouteService routeService;
 
+    @SuppressWarnings("unused")
     @GetMapping("/route")
     public ResponseEntity<?> getRouteById(@RequestParam(name = "id") Long id) {
         Optional<Route> route = routeService.getRouteById(id);
@@ -25,16 +28,19 @@ public class RouteController {
         }
     }
 
+    @SuppressWarnings("unused")
     @GetMapping("/routes")
     public ResponseEntity<?> getRoutes() {
         return ResponseEntity.ok(routeService.getRoutes());
     }
 
+    @SuppressWarnings("unused")
     @PostMapping("/route")
     public void saveRoute(@RequestBody Route route) {
         routeService.saveRoute(route);
     }
 
+    @SuppressWarnings("unused")
     @DeleteMapping("/route")
     public void deleteRoute(@RequestParam(name = "id") Long id) {
         routeService.deleteRouteById(id);
