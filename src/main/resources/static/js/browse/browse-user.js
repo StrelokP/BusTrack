@@ -1,0 +1,22 @@
+function updateUsers() {
+    xhr.open("GET", "/api/users", false);
+    xhr.send();
+
+    let elements = [];
+    if (xhr.status == 200) {
+        elements = JSON.parse(xhr.responseText);
+    }
+
+    let baseUl = document.getElementById("listItemsUser");
+    baseUl.innerHTML = "";
+
+    elements.forEach((e) => {
+        let listItem = document.createElement("li");
+        listItem.classList.add("list-group-item");
+        let listItemText = document.createTextNode(e.login);
+        listItem.appendChild(listItemText);
+        baseUl.appendChild(listItem);
+    });
+}
+
+updateUsers();
