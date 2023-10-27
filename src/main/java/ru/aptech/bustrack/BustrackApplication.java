@@ -3,7 +3,7 @@ package ru.aptech.bustrack;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 @SpringBootApplication
 public class BustrackApplication {
 
