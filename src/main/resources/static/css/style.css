@@ -32,3 +32,7 @@ body {
 .list-group-item {
     transition: .6s;
 }
+
+.li-selected {
+    background: #8caeff !important;
+}
