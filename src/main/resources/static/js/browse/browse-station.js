@@ -30,6 +30,8 @@ function updateStations() {
         baseUl.appendChild(listItem);
     });
     document.getElementById("stationName").value = "";
+    lat = null;
+    lng = null;
 }
 
 updateStations();

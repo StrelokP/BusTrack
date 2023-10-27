@@ -18,5 +18,9 @@ public class Station {
     @Column(name = "name")
     private String name;
 
-    //TODO: поля для координат
+    @Column(name = "lat")
+    private Double lat;
+
+    @Column(name = "lng")
+    private Double lng;
 }

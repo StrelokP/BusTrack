@@ -1,5 +1,9 @@
 let xhr = new XMLHttpRequest();
 
+/* Параметры карты */
+let lat = null;
+let lng = null;
+
 /* Модальное окно подтверждения */
 const modalConfirm = new bootstrap.Modal(document.getElementById('modalConfirm'), {});
 let btnYes = document.getElementById("btnYes");
