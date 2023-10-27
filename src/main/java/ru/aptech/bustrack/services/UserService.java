@@ -9,6 +9,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @Service
 public class UserService {
     @SuppressWarnings("unused")

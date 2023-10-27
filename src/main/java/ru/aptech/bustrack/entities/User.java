@@ -3,12 +3,11 @@ package ru.aptech.bustrack.entities;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
-import java.util.UUID;
 
+@SuppressWarnings("unused")
 @Entity
 @Getter
 @Setter

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 @Getter
 @Setter
 @Entity

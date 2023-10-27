@@ -8,6 +8,7 @@ import ru.aptech.bustrack.services.RoleService;
 
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/api")
 public class RoleController {
@@ -35,6 +36,7 @@ public class RoleController {
         roleService.saveRole(role);
     }
 
+    @SuppressWarnings("unused")
     @DeleteMapping("/role")
     public void deleteRole(@RequestParam(name = "id") Long id) {
         roleService.deleteRoleById(id);

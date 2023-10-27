@@ -8,6 +8,7 @@ import ru.aptech.bustrack.repositories.RouteRepository;
 import java.util.List;
 import java.util.Optional;
 
+@SuppressWarnings("unused")
 @Service
 public class RouteService {
     @Autowired
