@@ -3,6 +3,7 @@ package ru.aptech.bustrack.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.aptech.bustrack.config.Constants;
 import ru.aptech.bustrack.entities.User;
 import ru.aptech.bustrack.services.UserService;
 
@@ -23,7 +24,7 @@ public class UserController {
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
-            return ResponseEntity.badRequest().body("Пользователь не найден");
+            return ResponseEntity.badRequest().body(Constants.USER_NOT_FOUND_MESSAGE);
         }
     }
 
@@ -36,7 +37,7 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
             userService.registerUser(user);
-        } catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException | IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+</head>
+<body>
+    <div th:fragment="modalReg" class="modal fade" id="modalReg" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Регистрация</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="m-3 d-flex flex-column">
+                        <input class="form-control mb-1"
+                               type="text"
+                               id="regLogin"
+                               placeholder="Логин"
+                               name="login"
+                               minlength="4"
+                               maxlength="16" required>
+                        <input class="form-control mb-1"
+                               type="password"
+                               id="regPassword"
+                               placeholder="Пароль"
+                               name="password"
+                               minlength="8"
+                               maxlength="20" required>
+                        <span></span>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="btnRegPerform">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
