@@ -21,7 +21,7 @@ function deleteStation() {
     if (selectedStationId == null) {
         return;
     }
-    modalConfirm.show();
+
     //TODO: реализовать подтверждение удаления
     xhr.open("DELETE", "/api/station?id="+selectedStationId, false);
     xhr.send();
@@ -46,7 +46,11 @@ function getStation() {
 }
 
 btnDeleteStation.addEventListener("click", (e) => {
-    deleteStation();
+    modalConfirm.show();
+    btnYes.addEventListener("click", (c) => {
+        deleteStation();
+        modalConfirm.hide();
+    })
 });
 
 btnCreateStation.addEventListener("click", function() {
@@ -62,6 +66,30 @@ btnCreateStation.addEventListener("click", function() {
 btnEditStation.addEventListener("click", function() {
     getStation();
 });
+
+btnUpload.addEventListener("click", function() {
+     modalUpload.show();
+ });
+
+btnUploadPerform.addEventListener("click", function() {
+    if (upload.files.length == 0) {
+        alert("Выберете файлы"); //TODO: переделать на уведомления
+        return;
+    }
+    let fileData = new FormData();
+    fileData.append('file', upload.files[0]);
+
+    xhr.open("POST", "/api/file", false);
+    //xhr.setRequestHeader("Content-Type", "multipart/form-data");
+    xhr.send(fileData);
+
+    if (xhr.status == 200) {
+        console.log(xhr);
+        modalUpload.hide();
+    } else {
+        console.log(xhr);
+    }
+ });
 
 function initMap() {
   const map = new google.maps.Map(document.getElementById("map"), {

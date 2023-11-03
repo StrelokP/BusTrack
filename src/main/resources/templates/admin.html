@@ -7,7 +7,9 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" href="css/style.css"/>
     <link rel="stylesheet" href="css/carousel.css"/>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header class="p-3 text-bg-dark mb-5">
@@ -38,6 +40,9 @@
                             <button type="button" class="btn btn-success" id="btnCreateStation">Создать</button>
                             <button type="button" class="btn btn-warning" id="btnEditStation" disabled>Изменить</button>
                             <button type="button" class="btn btn-danger" id="btnDeleteStation" disabled>Удалить</button>
+                            <button type="button" class="btn btn-success" id="btnUpload">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -128,6 +133,7 @@
     <div th:replace="fragments/modalTransportType.html :: modalTransportType"></div>
     <div th:replace="fragments/modalUser.html :: modalUser"></div>
     <div th:replace="fragments/modalConfirm.html :: modalConfirm"></div>
+    <div th:replace="fragments/modalUpload.html :: modalUpload"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
