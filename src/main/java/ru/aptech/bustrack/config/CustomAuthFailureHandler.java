@@ -19,8 +19,7 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
         if (exception instanceof UsernameNotFoundException) {
             response.sendError(HttpStatus.BAD_REQUEST.value(), Constants.USER_NOT_FOUND_MESSAGE);
         } else if (exception instanceof BadCredentialsException) {
-            response.sendError(HttpStatus.BAD_REQUEST.value(),
-                    "Неверный пароль");
+            response.sendError(HttpStatus.BAD_REQUEST.value(), Constants.BAD_CREDENTIALS_MESSAGE);
         }
     }
 }

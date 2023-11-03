@@ -2,6 +2,7 @@ package ru.aptech.bustrack.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "role")
 public class Role implements GrantedAuthority {
     @Id

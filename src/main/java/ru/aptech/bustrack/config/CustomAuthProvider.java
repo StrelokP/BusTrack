@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.aptech.bustrack.services.CustomUserDetailsService;
 
-import javax.security.auth.login.CredentialNotFoundException;
 
 @Component
 public class CustomAuthProvider implements AuthenticationProvider {

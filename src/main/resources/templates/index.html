@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,9 +17,22 @@
                     <img class="bi me-2" width="80" height="80" role="img" aria-label="Bootstrap" src="img/icon.png">
                 </a>
                 <h2>BusTrack</h2>
-                <div class="text-end">
+                <div class="text-end" sec:authorize="!isAuthenticated()">
                     <button type="button" class="btn btn-outline-light me-2" id="btnLog">Вход</button>
                     <button type="button" class="btn btn-outline-light" id="btnReg">Регистрация</button>
+                </div>
+                <div class="text-end" sec:authorize="isAuthenticated()">
+                    <button sec:authorize="hasAuthority('USER')"
+                            type="button"
+                            class="btn btn-outline-light me-2"
+                            onclick="location.href='/user'">Личный кабинет</button>
+                    <button sec:authorize="hasAuthority('ADMIN')"
+                            type="button"
+                            class="btn btn-outline-light me-2"
+                            onclick="location.href='/admin'">Админ-панель</button>
+                    <button type="button"
+                            class="btn btn-outline-light"
+                            onclick="location.href='/logout'">Выход</button>
                 </div>
             </div>
         </div>
