@@ -78,14 +78,21 @@ btnUploadPerform.addEventListener("click", function() {
     }
     let fileData = new FormData();
     fileData.append('file', upload.files[0]);
+    //fileData.append('type', "station");
 
     xhr.open("POST", "/api/file", false);
     //xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.send(fileData);
 
     if (xhr.status == 200) {
-        console.log(xhr);
+        let toastLiveExample = document.getElementById('liveToast');
+        let alertBox = document.getElementById('alertBox');
+        let toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        alertBox.innerHTML = xhr.responseText;
+        toastBootstrap.show();
+
         modalUpload.hide();
+        updateStations();
     } else {
         console.log(xhr);
     }

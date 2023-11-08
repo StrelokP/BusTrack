@@ -8,4 +8,9 @@ public interface Constants {
     String BAD_CREDENTIALS_MESSAGE = "Неверный пароль";
     String USER_PAGE_URL = "/user";
     String ADMIN_PAGE_URL = "/admin";
+
+    String ERROR_PACKAGE_SAVING = "Не удалось сохранить пакет сущностей";
+    String PACKAGE_SAVING_RESULT_MSG = "Сохранено %s записей.%s";
+    String ERRORS_IN_ROWS = "\nОшибки в строках: %s";
+    String PACKAGE_SAVING_NO_RESULT_MSG = "Нет сохраненных записей.%s";
 }

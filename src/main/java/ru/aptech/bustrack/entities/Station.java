@@ -1,14 +1,16 @@
 package ru.aptech.bustrack.entities;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "station")
+@NoArgsConstructor
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
