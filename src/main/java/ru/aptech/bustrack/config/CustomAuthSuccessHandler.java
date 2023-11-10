@@ -19,10 +19,10 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         if (authentication.getAuthorities().stream()
-                .anyMatch(e -> e.getAuthority().equals(Constants.ROLE_ADMIN_NAME))) {
+                .anyMatch(e -> e.getAuthority().equals(Constants.Roles.ROLE_ADMIN_NAME))) {
             redirectStrategy.sendRedirect(request, response, Constants.ADMIN_PAGE_URL);
         } else if (authentication.getAuthorities().stream()
-                .anyMatch(e -> e.getAuthority().equals(Constants.ROLE_MODERATOR_NAME))){
+                .anyMatch(e -> e.getAuthority().equals(Constants.Roles.ROLE_MODERATOR_NAME))){
             //TODO: сделать модераторов
         } else {
             redirectStrategy.sendRedirect(request, response, Constants.USER_PAGE_URL);
