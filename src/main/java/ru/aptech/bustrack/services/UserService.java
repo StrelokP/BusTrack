@@ -26,6 +26,9 @@ public class UserService {
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private MailerService mailerService;
+
     /**
      * <b>Возвращает сущность пользователя из БД по его UUID</b>
      * @param id идентификатор пользователя
@@ -63,6 +66,10 @@ public class UserService {
         userRole.setId(3L);
         user.setRoles(Collections.singleton(userRole));
         userRepository.save(user);
+
+        mailerService.send("",
+                "Спасибо за регистрацию!",
+                "Текст письма");
     }
 
     public void updateUser(User user) {
