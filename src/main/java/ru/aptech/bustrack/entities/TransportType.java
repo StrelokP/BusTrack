@@ -16,7 +16,7 @@ public class TransportType {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "name")
+    private String name;
 
 }
