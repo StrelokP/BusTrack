@@ -14,13 +14,18 @@ btnLogPerform.addEventListener("click", function() {
     let logLogin = document.getElementById("logLogin");
     let logPassword = document.getElementById("logPassword");
 
-    xhr.open("POST", "/login", false);
-    const formData = new FormData();
+    xhr.open("POST", "/api/login", false);
+//    const formData = new FormData();
+//
+//    formData.append("login", logLogin.value);
+//    formData.append("password", logPassword.value);
 
-    formData.append("login", logLogin.value);
-    formData.append("password", logPassword.value);
-
-    xhr.send(formData);
+    let auth = {
+        login : logLogin.value,
+        password : logPassword.value
+    };
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(auth));
     if (xhr.status == 200) {
         let toastLiveExample = document.getElementById('liveToast');
         let alertBox = document.getElementById('alertBox');
@@ -28,8 +33,22 @@ btnLogPerform.addEventListener("click", function() {
         alertBox.innerHTML = "Успешная авторизация!";
         toastBootstrap.show();
         modalLog.hide();
-        console.log(xhr);
-        location.href = xhr.responseURL;
+
+        let response = JSON.parse(xhr.responseText);
+
+        let jwt = response.token;
+        setCookie('Authorization', jwt, 1);
+
+        let currentRole = response.role.name;
+        if (currentRole == 'ADMIN') {
+            location.href = "/admin";
+        } else if (currentRole == 'USER'){
+            location.href = "/user";
+        } else {
+            console.error("Модератор ещё не реализован");
+        }
+
+
     } else {
         let toastLiveExample = document.getElementById('liveToast');
         let alertBox = document.getElementById('alertBox');
@@ -40,4 +59,27 @@ btnLogPerform.addEventListener("click", function() {
 
 });
 
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 //TODO: добавить валидацию
