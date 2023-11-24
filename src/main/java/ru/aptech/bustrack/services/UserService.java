@@ -3,11 +3,22 @@ package ru.aptech.bustrack.services;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.aptech.bustrack.config.jwt.JwtTokenUtil;
 import ru.aptech.bustrack.entities.Role;
 import ru.aptech.bustrack.entities.User;
+import ru.aptech.bustrack.entities.dto.JwtRequest;
+import ru.aptech.bustrack.entities.dto.JwtResponse;
 import ru.aptech.bustrack.repositories.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
@@ -23,11 +34,22 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
+    @Qualifier("userDetailsService")
+    private CustomUserDetailsService userDetailsService;
+
+    @Autowired
     @Qualifier("passwordEncoder")
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private MailerService mailerService;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    @Qualifier("authenticationManager")
+    private AuthenticationManager authenticationManager;
 
     /**
      * <b>Возвращает сущность пользователя из БД по его UUID</b>
@@ -67,9 +89,35 @@ public class UserService {
         user.setRoles(Collections.singleton(userRole));
         userRepository.save(user);
 
-        mailerService.send("",
+        /*mailerService.send("",
                 "Спасибо за регистрацию!",
-                "Текст письма");
+                "Текст письма");*/
+    }
+
+    public ResponseEntity auth(JwtRequest jwtRequest) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(
+                jwtRequest.getLogin());
+        if (userDetails == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        if (!passwordEncoder.matches(jwtRequest.getPassword(),
+                userDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid credentials");
+        }
+
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                jwtRequest.getLogin(),
+                                jwtRequest.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = jwtTokenUtil.generateJwtToken(authentication);
+
+        return ResponseEntity.ok().body(new JwtResponse(jwt,
+                jwtRequest.getLogin(),
+                ((User) userDetails).getRoles().stream().findFirst().get(),
+                ((User) userDetails).getId()));
     }
 
     public void updateUser(User user) {

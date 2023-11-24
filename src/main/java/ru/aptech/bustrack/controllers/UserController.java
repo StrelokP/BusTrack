@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.aptech.bustrack.config.Constants;
 import ru.aptech.bustrack.entities.User;
+import ru.aptech.bustrack.entities.dto.JwtRequest;
 import ru.aptech.bustrack.services.UserService;
 
 import javax.persistence.EntityNotFoundException;
@@ -41,6 +42,11 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody JwtRequest jwt) {
+        return userService.auth(jwt);
     }
 
     @PutMapping("/user")
