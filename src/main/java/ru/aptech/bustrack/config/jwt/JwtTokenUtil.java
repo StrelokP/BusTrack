@@ -18,9 +18,9 @@ public class JwtTokenUtil {
     public String generateJwtToken(Authentication authentication) {
         User userPrincipal = (User) authentication.getPrincipal();
         return Jwts.builder()
-                .setSubject(userPrincipal.getLogin())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .subject(userPrincipal.getLogin())
+                .IssuedAt(new Date())
+                .Expiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
